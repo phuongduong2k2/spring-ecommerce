@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Ecommerce
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce_db
+    username: root
+    password: root
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8082
