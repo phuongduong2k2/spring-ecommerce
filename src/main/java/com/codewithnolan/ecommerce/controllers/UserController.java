@@ -4,7 +4,6 @@ import com.codewithnolan.ecommerce.dto.UserDTO;
 import com.codewithnolan.ecommerce.entities.User;
 import com.codewithnolan.ecommerce.services.UserService;
 import com.codewithnolan.ecommerce.utils.ErrorMapper;
-import com.codewithnolan.ecommerce.utils.UserMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,19 +19,17 @@ import java.util.UUID;
 @RequestMapping(path = "/api/v1")
 public class UserController {
 
-    private UserService userService;
-    private UserMapper userMapper;
-    private ErrorMapper errorMapper;
+    private final UserService userService;
+    private final ErrorMapper errorMapper;
 
     @Autowired
-    public UserController(UserService userService, UserMapper mapper, ErrorMapper errorMapper) {
+    public UserController(UserService userService, ErrorMapper errorMapper) {
         this.userService = userService;
-        this.userMapper = mapper;
         this.errorMapper = errorMapper;
     }
 
     @PostMapping("/users")
-    public ResponseEntity createUser(@Valid @RequestBody UserDTO userDto) {
+    public ResponseEntity<Object> createUser(@Valid @RequestBody UserDTO userDto) {
         try {
             return new ResponseEntity<>(this.userService.create(userDto), HttpStatus.OK);
         } catch (ResponseStatusException e) {
@@ -41,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity getAllUsers() {
+    public ResponseEntity<Object> getAllUsers() {
         try {
             return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
         } catch(ResponseStatusException e) {
