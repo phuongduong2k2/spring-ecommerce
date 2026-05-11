@@ -15,4 +15,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("SELECT u FROM users u WHERE u.phoneNumber=:phoneNumber")
     Optional<User> findByPhoneNumber(@NotNull String phoneNumber);
+
+    @Query("SELECT u FROM users u WHERE u.id=:id")
+    Optional<User> findById(@NotNull UUID id);
 }

@@ -1,5 +1,6 @@
 package com.codewithnolan.ecommerce.controllers.user;
 
+import com.codewithnolan.ecommerce.dtos.ProfileDto;
 import com.codewithnolan.ecommerce.dtos.CreateUserDto;
 import com.codewithnolan.ecommerce.exceptions.ApiError;
 import com.codewithnolan.ecommerce.exceptions.UserException;
@@ -11,16 +12,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Validated
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<UUID> register(@Valid @RequestBody CreateUserDto createUserDto) {
         return new ResponseEntity<>(this.userService.createUser(createUserDto), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/profile")
+    public ResponseEntity<String> updateProfile(@PathVariable UUID id, @Valid @RequestBody ProfileDto profileDto) {
+        return new ResponseEntity<>(this.userService.updateProfile(id, profileDto), HttpStatus.OK);
     }
 
     @ExceptionHandler
