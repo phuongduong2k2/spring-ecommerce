@@ -1,5 +1,8 @@
 package com.codewithnolan.ecommerce.exceptions;
 
+import lombok.Setter;
+
+@Setter
 public class UserException extends RuntimeException {
     private String message;
 
@@ -10,7 +13,4 @@ public class UserException extends RuntimeException {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

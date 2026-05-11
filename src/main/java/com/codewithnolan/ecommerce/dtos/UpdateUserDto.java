@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ProfileDto {
+public class UpdateUserDto {
     @NotNull(message = "First name is required")
     private String firstName;
 
